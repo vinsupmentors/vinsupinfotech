@@ -1,0 +1,154 @@
+/* src/App.css - Global & Header Styles */
+
+:root {
+  --primary-blue: #1a73e8;
+  --primary-hover: #1557b0;
+  --bg-color: #04419d;
+  --header-height: 70px;
+  --header-bg: #ffffff;
+  --brand-red: #ff0000;
+}
+body {
+  overscroll-behavior: none;
+}
+
+/* 1. MASTER LOCK: Prevent Selection Globally */
+* { 
+  box-sizing: border-box;
+  /* Prevent highlighting on everything by default */
+  -webkit-user-select: none; /* Chrome/Safari */
+  -moz-user-select: none;    /* Firefox */
+  -ms-user-select: none;     /* Edge */
+  user-select: none;         /* Standard */
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  font-size: 16px; 
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--bg-color);
+  
+  /* Force Arrow Cursor globally */
+  cursor: default; 
+  -webkit-tap-highlight-color: transparent;
+}
+
+#root { height: 100%; }
+
+/* 2. EXCEPTIONS: Where user MUST type or select */
+input, textarea {
+  /* Re-enable selection inside form fields */
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+  cursor: text;
+}
+
+/* Optional: Add this class to specific paragraphs (like code blocks) if you want them selectable later */
+.allow-select {
+  user-select: text;
+  cursor: text;
+}
+
+/* 3. Fixed Header */
+.app-header {
+  height: var(--header-height);
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: var(--header-bg);
+  z-index: 1000;
+  border-bottom: 1px solid #ffffff;
+  display: flex;
+  justify-content: center;
+}
+
+/* 4. Header Content Container */
+.header-inner {
+  width: 100%;
+  max-width: 1400px;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
+/* 5. Branding */
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.brand-logo { display: none; }
+
+.brand-text-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  line-height: 1.2;
+}
+
+.brand-title {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--brand-red);
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+/* 6. Header Buttons */
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.nav-btn {
+  padding: 10px 26px;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.btn-ghost {
+  background: transparent;
+  color: #000000;
+}
+
+.btn-ghost:hover {
+  color: #f90000;
+}
+
+.btn-filled {
+  background-color: var(--primary-blue);
+  color: rgb(0, 0, 0);
+  box-shadow: 0 2px 8px rgba(26, 115, 232, 0.4);
+}
+
+.btn-filled:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-1px);
+}
+
+.main-content {
+  padding-top: var(--header-height);
+  min-height: 100vh;
+}
+.logo{
+  width: 100%;
+height: 50px
+}

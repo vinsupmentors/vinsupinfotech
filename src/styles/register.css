@@ -1,0 +1,199 @@
+  /* src/styles/register.css */
+
+  /* --- 1. Container --- */
+  .register-container {
+    width: 100%;
+    min-height: 100vh; 
+    padding-top: 0px; /* Header space */
+    background-color: #f0f2f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -70px;
+    /* padding: 2rem; */
+  }
+
+  /* --- 2. The Card Wrapper (Split View) --- */
+  .register-wrapper {
+    display: flex;
+    width: 100%;
+    max-width: 1100px;
+    background: #ffffff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    min-height: 650px;
+  }
+
+  /* --- 3. Left Side (Visuals) --- */
+  .register-left {
+    flex: 1;
+    background:  rgba(130, 127, 185, 0.697);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: rgb(0, 0, 0);
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .register-left-content {
+      padding: 1rem;
+  }
+
+  .login-illustration1 {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
+      margin-bottom: 20px;
+      margin-left: 15px;
+      border-radius: 8px;
+  }
+
+  .register-left h3 {
+    font-size: 1.8rem;
+    
+  }
+
+  .register-left p {
+    opacity: 0.9;
+    line-height: 1.6;
+  }
+
+  /* --- 4. Right Side (Form) --- */
+  .register-right {
+    flex: 1.2;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow-y: auto;
+  }
+
+  .form-header {
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  .form-title {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #202124;
+    margin: 0 0 0.5rem 0;
+  }
+
+  .title-underline {
+    width: 40px;
+    height: 4px;
+    background-color: #1a73e8;
+    border-radius: 2px;
+    margin: 0 auto;
+  }
+
+  /* Form Grid */
+  .rc-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* MAXIMIZED INPUT WIDTH: Minimum horizontal gap (0.1rem) */
+    gap: 1rem 0.1rem; 
+    margin-bottom: 1rem;
+  }
+
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .input-group label {
+    font-size: 20ox;
+    font-weight: 600;
+    color: #374151;
+  }
+
+  .input-group input, .input-group select {
+    /* MAXIMIZED INPUT HEIGHT: Padding 1.2rem */
+    padding: 1.2rem 1rem; 
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 20;
+    transition: all 0.2s;
+    box-sizing: border-box;
+  }
+px
+  .input-group input:focus, .input-group select:focus {
+    outline: none;
+    border-color: #1a73e8;
+    box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.1);
+  }
+
+  .full-width {
+      grid-column: span 2;
+  }
+
+  /* Buttons */
+  .btn-submit {
+    width: 100%;
+    padding: 0.85rem;
+    background-color: #1a73e8;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-top: 1rem;
+  }
+
+  .btn-submit:hover {
+    background-color: #1557b0;
+  }
+
+  /* Footer / Links */
+  .rc-footer {
+    margin-top: 1.5rem;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #6b7280;
+  }
+
+  .link-login {
+    color: #1a73e8;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .rc-error {
+    background-color: #fef2f2;
+    border-left: 4px solid #ef4444;
+    color: #b91c1c;
+    padding: 1rem;
+    border-radius: 6px;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-align: center;
+  }
+
+  /* Mobile Responsiveness */
+  @media (max-width: 768px) {
+    .register-wrapper {
+      flex-direction: column;
+      min-height: auto;
+    }
+    .register-left {
+      display: none; 
+    }
+    .register-right {
+      padding: 2rem;
+    }
+    .rc-form-grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    .full-width {
+      grid-column: span 1;
+    }
+  }

@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Admin - Enter Round Marks</title>
+  <style>
+    body{font-family:Segoe UI, Arial;margin:20px;background:#f7fafc}
+    .card{background:#fff;padding:16px;border-radius:8px;box-shadow:0 1px 6px rgba(0,0,0,0.06);max-width:720px}
+    label{display:block;margin-top:8px;font-size:13px}
+    input, select{width:100%;padding:8px;margin-top:4px;border:1px solid #d1d5db;border-radius:6px}
+    .row{display:flex;gap:8px}
+    .row > *{flex:1}
+    button{padding:8px 12px;border:none;border-radius:6px;background:#0ea5e9;color:#fff;cursor:pointer}
+    .small{font-size:13px;color:#374151}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>Admin — Enter Round Marks</h2>
+    <div class="small">Make sure you replace GAS_WEBAPP with your Apps Script URL in this file before using.</div>
+
+    <label>Admin Key (if set in Code.gs)</label>
+    <input id="adminKey" placeholder="Optional admin key" />
+
+    <label>Student ID</label>
+    <input id="studentId" placeholder="S169XXXXXXXXX" />
+
+    <div class="row">
+      <div>
+        <label>Round</label>
+        <select id="round">
+          <option value="gd">GD</option>
+          <option value="technical">Technical</option>
+          <option value="hr">HR</option>
+        </select>
+      </div>
+      <div>
+        <label>Marks (0–10)</label>
+        <input id="marks" type="number" min="0" max="10" step="0.1" placeholder="e.g. 8" />
+      </div>
+    </div>
+
+    <div style="margin-top:12px;display:flex;gap:8px">
+      <button id="saveBtn">Save Marks</button>
+      <button id="fetchBtn" style="background:#10b981">Fetch Interview Row</button>
+    </div>
+
+    <pre id="out" style="margin-top:12px;background:#f3f4f6;padding:10px;border-radius:6px;white-space:pre-wrap"></pre>
+  </div>
+
+<script>
+const GAS = 'https://script.google.com/macros/s/AKfycbzevpXXsWU-6Ik1IwSTGf04G3GjjbTfqfHnTrITAbBr6F3D7intEMsZOsAtWWpd1mo/exec'; // <-- REPLACE with your Apps Script web app URL (example: https://script.google.com/macros/s/AKfy.../exec)
+
+async function post(path, body) {
+  const res = await fetch(GAS + '?path=' + encodeURIComponent(path), {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify(body)
+  });
+  return res.json();
+}
+
+document.getElementById('saveBtn').onclick = async () => {
+  const studentId = document.getElementById('studentId').value.trim();
+  const round = document.getElementById('round').value;
+  const marks = Number(document.getElementById('marks').value);
+  const adminKey = document.getElementById('adminKey').value.trim() || undefined;
+  if (!studentId) return alert('Enter studentId');
+  if (isNaN(marks)) return alert('Enter numeric marks');
+  const payload = { studentId, round, marks };
+  if (adminKey) payload.adminKey = adminKey;
+  try {
+    const r = await post('saveRoundMarks', payload);
+    document.getElementById('out').innerText = JSON.stringify(r, null, 2);
+    alert('Saved: ' + (r.status === 'ok' ? 'OK' : r.message));
+  } catch(err) {
+    document.getElementById('out').innerText = String(err);
+    alert('Error: ' + err.message);
+  }
+};
+
+// fetch InterviewRounds row for student (useful to confirm)
+document.getElementById('fetchBtn').onclick = async () => {
+  const studentId = document.getElementById('studentId').value.trim();
+  if (!studentId) return alert('Enter studentId');
+  try {
+    const r = await post('getDashboard', { studentId });
+    document.getElementById('out').innerText = JSON.stringify(r, null, 2);
+  } catch(err) {
+    document.getElementById('out').innerText = String(err);
+  }
+};
+</script>
+</body>
+</html>

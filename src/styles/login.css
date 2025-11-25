@@ -1,0 +1,125 @@
+/* src/styles/login.css */
+
+/* --- CONTAINER: Locked to Screen --- */
+.login-container {
+  width: 100%;
+  height: 100%; /* Fills the locked body from App.css */
+  padding-top: 10px; /* Header height */
+  background-color: #f0f2f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* --- CARD WRAPPER --- */
+.login-wrapper {
+  display: flex;
+  width: 95%;
+  max-width: 900px; /* Slightly narrower than Register since form is smaller */
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  
+  /* Height Logic: Fit content, but max out at screen size */
+  height: auto;
+  max-height: calc(100% - 60px); 
+  min-height: 500px; /* Ensure it doesn't look squashed */
+}
+
+/* --- LEFT SIDE (Visuals) --- */
+.login-left {
+  flex: 1;
+  background: rgba(130, 127, 185, 0.697);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: rgb(0, 0, 0);
+  padding: 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.dum{
+    font-size: 20px;
+}
+.login-illustration {
+  max-width: 80%;
+  height: auto;
+  /* margin-bottom: 1.5rem; */
+  margin-left: -10PX;
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2));
+}
+
+.login-left h3 { font-size: 1.8rem; margin-bottom: 0.5rem; }
+.login-left p { font-size: 0.95rem; opacity: 0.9; max-width: 80%; line-height: 1.5; }
+
+/* --- RIGHT SIDE (Form) --- */
+.login-right {
+  flex: 1;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow-y: auto;
+}
+
+/* Header */
+.login-header { text-align: center; margin-bottom: 2rem; }
+.login-title { font-size: 2rem; font-weight: 800; color: #202124; margin: 0 0 0.5rem 0; }
+.login-sub { color: #5f6368; font-size: 0.95rem; }
+
+/* Form Elements */
+.login-form { display: flex; flex-direction: column; gap: 1.2rem; }
+
+.input-group { display: flex; flex-direction: column; text-align: left; }
+.input-group label { font-size: 0.85rem; font-weight: 700; color: #444; margin-bottom: 5px; }
+.input-group input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid #dadce0;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.2s;
+}
+.input-group input:focus { border-color: #1a73e8; box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.1); }
+
+/* Buttons */
+.btn-login {
+  width: 100%;
+  padding: 0.9rem;
+  background: #1a73e8;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background 0.2s;
+}
+.btn-login:hover { background: #1557b0; }
+.btn-login:disabled { background: #9ca3af; cursor: not-allowed; }
+
+/* Secondary Actions */
+.login-actions {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #5f6368;
+}
+.link-text { color: #1a73e8; font-weight: 700; cursor: pointer; margin-left: 5px; }
+.link-text:hover { text-decoration: underline; }
+
+/* --- MOBILE --- */
+@media (max-width: 900px) {
+  .login-container { display: block; height: auto; min-height: 100vh; padding: 90px 1rem 2rem 1rem; }
+  .login-wrapper { flex-direction: column; max-height: none; }
+  .login-left { display: none; } /* Hide image on mobile */
+  .login-right { padding: 2rem; }
+}

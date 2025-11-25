@@ -1,0 +1,12 @@
+/* Minimal global reset for overall project */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background: #f8f9fb;
+  color: #1e1e1e;
+}

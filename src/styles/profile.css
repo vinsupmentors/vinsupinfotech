@@ -1,0 +1,203 @@
+/* src/styles/profile.css */
+
+/* --- 1. Container --- */
+.profile-container {
+  width: 100%;
+  min-height: 100vh;
+  padding-top: 10px;
+  padding-bottom: 60px;
+  background-color: #f0f2f5;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* --- 2. The Card --- */
+.profile-card {
+  width: 95%;
+  max-width: 1000px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+/* --- 3. Header --- */
+.profile-header {
+  padding: 3rem 10%;
+  background: #fff;
+  border-bottom: 1px solid #f0f0f0;
+  text-align: center;
+}
+
+.profile-title {
+  margin: 0;
+  font-size: 2.4rem; /* Increased from 2rem */
+  font-weight: 800;
+  color: #1f2937;
+}
+
+.profile-subtitle {
+  margin: 12px 0 0 0;
+  color: #6b7280;
+  font-size: 1.1rem; /* Increased from 1rem */
+}
+
+/* --- 4. Form Content Area --- */
+.profile-scroll-area {
+  background: #ffffff;
+  padding: 3rem 0;
+  width: 100%;
+}
+
+/* --- CRITICAL FIX: Centered Form Layout --- */
+#profileForm {
+  width: 100%;
+  max-width: 750px; /* Slightly wider to accommodate larger text */
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Sections */
+.form-section {
+  margin-bottom: 0rem; /* More spacing */
+  padding-bottom: 1rem;
+  border-bottom: 1px dashed #e5e7eb;
+}
+
+.form-section:last-child {
+  border-bottom: none;
+}
+
+.section-title {
+  font-size: 1.25rem; /* Increased from 1.1rem */
+  font-weight: 700;
+  color: #1a73e8;
+  margin-bottom: 1.8rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Grids */
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.8rem; /* More gap */
+}
+
+/* Inputs */
+.form-group {
+  margin-bottom: 1.8rem;
+}
+
+.form-group label {
+  display: block;
+  font-size: 1rem; /* Increased from 0.9rem */
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 10px;
+}
+
+.req { color: #dc2626; margin-left: 4px; }
+
+.form-group input, 
+.form-group select, 
+.form-group textarea {
+  width: 100%;
+  padding: 14px 18px; /* Larger padding */
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1.1rem; /* Increased from 1rem */
+  outline: none;
+  background-color: #fff;
+  transition: all 0.2s ease-in-out;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.form-group input:focus, 
+.form-group select:focus, 
+.form-group textarea:focus {
+  border-color: #1a73e8;
+  box-shadow: 0 0 0 4px rgba(26, 115, 232, 0.1);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 140px; /* Taller text area */
+}
+
+/* Chips */
+.interest-chips {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.chip-label {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 24px; /* Larger padding */
+  border: 1px solid #d1d5db;
+  border-radius: 50px;
+  font-size: 1rem; /* Increased from 0.9rem */
+  color: #4b5563;
+  cursor: pointer;
+  background: #fff;
+  transition: all 0.2s;
+  user-select: none;
+}
+
+.chip-label:hover { background: #f3f4f6; }
+
+.chip-label.active {
+  background: #eff6ff;
+  border-color: #1a73e8;
+  color: #1a73e8;
+  font-weight: 600;
+}
+
+/* --- Footer --- */
+.profile-footer {
+  padding: 2.5rem;
+  background: #f9fafb;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-save {
+  padding: 16px 54px; /* Larger button */
+  background: #1a73e8;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 1.2rem; /* Increased from 1.1rem */
+  cursor: pointer;
+  transition: background 0.2s;
+  box-shadow: 0 4px 6px -1px rgba(26, 115, 232, 0.2);
+}
+
+.btn-save:hover {
+  background: #1557b0;
+  transform: translateY(-1px);
+}
+
+/* --- Mobile --- */
+@media (max-width: 768px) {
+  .profile-container { padding-top: 80px; padding-bottom: 20px; }
+  .form-grid-2 { grid-template-columns: 1fr; }
+  
+  #profileForm {
+    padding: 0 1.5rem;
+  }
+  
+  .profile-header { padding: 2rem 1.5rem; }
+  
+  .btn-save { width: 100%; }
+}

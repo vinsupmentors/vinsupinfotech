@@ -1,0 +1,16 @@
+/* src/styles/admin.css */
+.admin-container { padding: 30px; display:flex; justify-content:center; }
+.admin-card { width: 100%; max-width: 980px; background:white; border-radius:12px; padding:20px; box-shadow:0 6px 20px rgba(0,0,0,0.06); }
+.admin-form { display:flex; gap:10px; margin-bottom:12px; }
+.admin-form input { flex:1; padding:10px; border:1px solid #ddd; border-radius:8px; }
+.admin-form button { padding:10px 14px; background:#1a73e8; color:white; border:none; border-radius:8px; cursor:pointer; }
+.admin-error { color:#b91c1c; margin-bottom:8px; }
+.admin-result { margin-top:12px; border-top:1px dashed #eee; padding-top:12px; }
+.student-info { display:flex; gap:20px; flex-wrap:wrap; margin-bottom:10px; color:#111827; }
+.stage-box { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px; }
+.stage-box .done { background:#e6f4ea; color:#047857; padding:6px 10px; border-radius:8px; font-weight:700; }
+.stage-box .pending { background:#f3f4f6; color:#374151; padding:6px 10px; border-radius:8px; }
+.score-box { display:flex; gap:16px; margin-bottom:12px; color:#374151; }
+.admin-note { color:#6b7280; padding:10px; background:#fffbeb; border-radius:8px; }
+.dashboard-container-inner { margin-top:16px; }
+.recording-link { margin-top:10px; font-size:0.85rem; color:#6b7280; }

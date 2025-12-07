@@ -5,8 +5,10 @@ import { post } from "../api";
 import "../styles/register.css";
 
 
-import LEFT_IMAGE from './assets/info.png';
-import LEFT_IMAGE1 from './assets/info.png';
+import LEFT_IMAGE from '../assets/info.png';
+
+import LEFT_IMAGE1 from '../assets/info.png';
+
  
 
 // Large degree list

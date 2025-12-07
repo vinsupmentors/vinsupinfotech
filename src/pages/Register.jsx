@@ -55,6 +55,7 @@ export default function Register() {
     if (!form.name) return "Please enter your name.";
     if (!form.email) return "Please enter your email.";
     if (!form.phone) return "Please enter phone.";
+    if (!form.college) return "Please enter your college name."; 
     if (!form.degree) return "Please select degree.";
     if (!form.graduationYear) return "Please select graduation year.";
     if (!form.password) return "Please enter password.";
@@ -189,8 +190,13 @@ export default function Register() {
 
               <div className="input-group">
                 <label>College Name</label>
-                <input value={form.college} onChange={e => update("college", e.target.value)} placeholder="Institute Name" />
-              </div>
+                <input 
+  value={form.college} 
+  onChange={e => update("college", e.target.value)} 
+  placeholder="Institute Name"
+  required    // ← Optional but recommended
+/>
+</div>
 
               {/* DEGREE DROPDOWN */}
               <div className="input-group">

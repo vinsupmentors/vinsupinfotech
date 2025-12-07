@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import './App.css';
 
+// --- Assets ---
+import LOGO_IMAGE from './assets/info.png'; // Ensure this path is correct
+
 // --- Pages ---
 import Register from './pages/Register';
 import Login from './pages/Login';
-const IMAGE = './src/assets/info.png';
 
 // --- Components ---
 import StudentProfileForm from './components/StudentProfileForm';
@@ -14,13 +16,16 @@ import InterviewChecklist from './components/InterviewChecklist';
 import AptitudeTest from './components/AptitudeTest';
 import DomainTest from './components/DomainTest';
 import Dashboard from './components/Dashboard';
+import OnlineTestDashboard from './components/OnlineTestDashboard'; // New Dashboard
+import Preloader from './components/Preloader'; // The Loading Screen
 
-
+// --- Auth Guard Component ---
 function RequireAuth({ children, user }) {
   const nav = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
+    // Debug logs to help trace issues
     console.log("DEBUG — RequireAuth:", {
       profileCompleted: user?.profileCompleted,
       progressPercent: user?.progressPercent,
@@ -46,21 +51,19 @@ function RequireAuth({ children, user }) {
       return;
     }
 
-    // ❌ DO NOT BLOCK DASHBOARD
-    // let dashboard be open normally
-    // Checklist will show buttons based on Google sheet values only
-
   }, [user, nav, location.pathname]);
 
   return user ? children : null;
 }
 
-
-
 export default function App() {
   const nav = useNavigate();
   const location = useLocation();
 
+  // --- 1. Loading State ---
+  const [initialLoad, setInitialLoad] = useState(true);
+
+  // --- 2. User State ---
   const [user, setUser] = useState(() => {
     try {
       const saved = localStorage.getItem('assess_user');
@@ -71,13 +74,24 @@ export default function App() {
       return null;
     }
   });
+  
+  
 
+  // --- 3. Preloader Timer ---
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setInitialLoad(false);
+    }, 7000); // Shows loader for 2.5 seconds
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Sync user to LocalStorage
   useEffect(() => {
     if (user) localStorage.setItem('assess_user', JSON.stringify(user));
     else localStorage.removeItem('assess_user');
   }, [user]);
 
-  // --- LOGIN FLOW (most important) ---
+  // --- Handlers ---
   const handleLogin = (u) => {
     u.progressPercent = Number(u.progressPercent || 0);
     setUser(u);
@@ -87,7 +101,7 @@ export default function App() {
     if (p < 20) nav('/profile');
     else if (p < 30) nav('/select-role');
     else if (p < 60) nav('/checklist');
-    else nav('/dashboard');
+    else nav('/checklist'); // Default to checklist as the main hub
   };
 
   const handleLogout = () => {
@@ -97,6 +111,12 @@ export default function App() {
 
   const hideNav = location.pathname === '/login' || location.pathname === '/';
 
+  // --- RENDER 1: Preloader ---
+  if (initialLoad) {
+    return <Preloader />;
+  }
+
+  // --- RENDER 2: Main App ---
   return (
     <div className="app-root">
 
@@ -104,9 +124,10 @@ export default function App() {
         <header className="app-header">
           <div className="header-inner">
 
-            <div className="header-brand" onClick={() => nav(user ? '/dashboard' : '/')}>
+            {/* Logo Click Logic: Goes to Checklist (Hub) instead of Dashboard */}
+            <div className="header-brand" onClick={() => nav(user ? '/checklist' : '/')}>
               <div className="brand-text-container">
-                <img src={IMAGE} alt="logo" className="logo" />
+                <img src={LOGO_IMAGE} alt="logo" className="logo" />
               </div>
             </div>
 
@@ -143,8 +164,6 @@ export default function App() {
           <Route path="/" element={<Register />} />
           <Route path="/login" element={<Login onLogin={handleLogin} />} />
           
-
-
           {/* Protected Routes */}
           <Route path="/profile" element={
             <RequireAuth user={user}>
@@ -182,6 +201,14 @@ export default function App() {
             </RequireAuth>
           } />
 
+          {/* Route for the Online Assessment Result */}
+          <Route path="/online-result" element={
+            <RequireAuth user={user}>
+              <OnlineTestDashboard studentId={user?.studentId} />
+            </RequireAuth>
+          } />
+
+          {/* Route for the Final Dashboard (Full Result) */}
           <Route path="/dashboard" element={
             <RequireAuth user={user}>
               <Dashboard studentId={user?.studentId} />

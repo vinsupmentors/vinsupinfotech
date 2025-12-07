@@ -10,7 +10,7 @@ export default function AptitudeTest({ studentId }) {
   const [answers, setAnswers] = useState({}); 
   const [timeLeft, setTimeLeft] = useState(20 * 60); 
   const [loading, setLoading] = useState(true);
-  const [errorMsg, setErrorMsg] = useState(null); // New state for backend errors
+  const [errorMsg, setErrorMsg] = useState(null); 
   const timerRef = useRef(null);
 
   useEffect(() => {
@@ -50,7 +50,25 @@ export default function AptitudeTest({ studentId }) {
       }, 1000);
     }
     return () => clearInterval(timerRef.current);
-  }, [questions, loading]); // Dependencies ensure timer starts when questions load
+  }, [questions, loading]); 
+
+  // --- NEW: Tab Switching Detection ---
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        // Updated Alert Message
+        alert("Tab switch detected! Auto-submitting your test with the answers you have marked so far.");
+        finishTest(true, true); // auto=true, violation=true
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    
+    // Cleanup
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, [answers]); // Dependency on answers ensures we submit the latest state
 
   const formatTime = (seconds) => {
     const m = Math.floor(seconds / 60);
@@ -79,9 +97,12 @@ export default function AptitudeTest({ studentId }) {
     setIndex(i);
   };
 
-  const finishTest = async (auto = false) => {
+  // Updated finishTest to handle violations
+  const finishTest = async (auto = false, violation = false) => {
     clearInterval(timerRef.current);
-    if (!auto && !window.confirm("Are you sure you want to submit your test?")) {
+    
+    // If it's not auto-submit AND not a violation, ask for confirmation
+    if (!auto && !violation && !window.confirm("Are you sure you want to submit your test?")) {
         return; 
     }
 
@@ -91,9 +112,18 @@ export default function AptitudeTest({ studentId }) {
     }));
 
     try {
-      const r = await post('submitAptitudeResult', { studentId, answers: payload });
+      const r = await post('submitAptitudeResult', { 
+        studentId, 
+        answers: payload,
+        violation: violation // Send violation flag to backend
+      });
+
       if (r.status === 'ok') {
-        alert('Test submitted successfully!');
+        if (violation) {
+             alert('Your test has been auto-submitted successfully due to tab switching.');
+        } else {
+             alert('Test submitted successfully!');
+        }
         nav('/checklist'); 
       } else {
         alert(r.message || 'Submission failed. Please try again.');

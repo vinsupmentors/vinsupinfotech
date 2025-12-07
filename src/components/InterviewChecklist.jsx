@@ -33,10 +33,9 @@ export default function InterviewChecklist({ studentId }) {
   function startNext() {
     if (!status.aptitude) return nav('/aptitude');
     if (!status.domain) return nav('/domain');
-    alert('Aptitude and Domain done. Please ask admin to enter GD/Technical/HR marks then refresh.');
+    // Alert removed because the button below will change automatically
   }
 
-  // --- Status Logic Helpers ---
   const getStatusClass = (isDone, isNext) => {
     if (isDone) return 'completed';
     if (isNext) return 'active';
@@ -44,38 +43,39 @@ export default function InterviewChecklist({ studentId }) {
   };
 
   const getStatusIcon = (isDone, isNext) => {
-    if (isDone) return '✅'; // Check mark
-    if (isNext) return '🚀'; // Rocket for next
-    return '🔒'; // Lock for pending
+    if (isDone) return '✅';
+    if (isNext) return '🚀';
+    return '🔒';
   };
 
-  // Determine current stage
+  // --- LOGIC UPDATES START HERE ---
+
+  // 1. Current Step Logic
   const isAptitudeNext = !status.aptitude;
   const isDomainNext = status.aptitude && !status.domain;
-  const isGDNext = status.aptitude && status.domain && !status.gd;
-  const isTechNext = status.aptitude && status.domain && status.gd && !status.technical;
-  const isHRNext = status.aptitude && status.domain && status.gd && status.technical && !status.hr;
   
-  // Calculate progress bar width
+  // NOTE: For GD, Tech, and HR, we pass 'false' for isNext because 
+  // we don't want the user to try and click them online.
+  
   const completedCount = Object.values(status).filter(Boolean).length;
   const progressPercent = (completedCount / 5) * 100;
+
+  // 2. NEW CONDITION: Check if the "Online" portion is finished
+  const isOnlineTestDone = status.aptitude && status.domain;
 
   return (
     <div className="checklist-container">
       <div className="checklist-card-wrapper">
         
-        {/* Header */}
         <div className="checklist-header">
           <h2 className="checklist-title">Interview Roadmap</h2>
-          <p className="checklist-subtitle">Complete each stage to unlock your final results</p>
+          <p className="checklist-subtitle">Complete Aptitude & Domain to view your report</p>
         </div>
 
-        {/* Progress Bar */}
-        <div className="progress-track">
+        {/* <div className="progress-track">
           <div className="progress-fill" style={{width: `${progressPercent}%`}}></div>
-        </div>
+        </div> */}
 
-        {/* The Grid of Cards */}
         <div className="checklist-grid">
           
           {/* 1. Aptitude */}
@@ -92,39 +92,39 @@ export default function InterviewChecklist({ studentId }) {
             <div className="card-status">{status.domain ? 'Completed' : (isDomainNext ? 'Up Next' : 'Locked')}</div>
           </div>
 
-          {/* 3. GD */}
-          <div className={`status-card ${getStatusClass(status.gd, isGDNext)}`}>
-            <div className="card-icon">{getStatusIcon(status.gd, isGDNext)}</div>
+          {/* 3. GD - Updated Label */}
+          <div className={`status-card ${getStatusClass(status.gd, false)}`}>
+            <div className="card-icon">{status.gd ? '✅' : '🗣️'}</div>
             <div className="card-title">Group Discussion</div>
-            <div className="card-status">{status.gd ? 'Completed' : (isGDNext ? 'Pending Admin' : 'Locked')}</div>
+            <div className="card-status">{status.gd ? 'Completed' : 'Offline Round'}</div>
           </div>
 
-          {/* 4. Technical */}
-          <div className={`status-card ${getStatusClass(status.technical, isTechNext)}`}>
-            <div className="card-icon">{getStatusIcon(status.technical, isTechNext)}</div>
+          {/* 4. Technical - Updated Label */}
+          <div className={`status-card ${getStatusClass(status.technical, false)}`}>
+            <div className="card-icon">{status.technical ? '✅' : '⚙️'}</div>
             <div className="card-title">Technical Interview</div>
-            <div className="card-status">{status.technical ? 'Completed' : (isTechNext ? 'Pending Admin' : 'Locked')}</div>
+            <div className="card-status">{status.technical ? 'Completed' : 'Offline Round'}</div>
           </div>
 
-          {/* 5. HR */}
-          <div className={`status-card ${getStatusClass(status.hr, isHRNext)}`}>
-            <div className="card-icon">{getStatusIcon(status.hr, isHRNext)}</div>
+          {/* 5. HR - Updated Label */}
+          <div className={`status-card ${getStatusClass(status.hr, false)}`}>
+            <div className="card-icon">{status.hr ? '✅' : '🤝'}</div>
             <div className="card-title">HR Round</div>
-            <div className="card-status">{status.hr ? 'Completed' : (isHRNext ? 'Pending Admin' : 'Locked')}</div>
+            <div className="card-status">{status.hr ? 'Completed' : 'Offline Round'}</div>
           </div>
 
         </div>
 
-        {/* Footer Actions */}
         <div className="checklist-footer">
           <button className="btn-secondary" onClick={load} disabled={loading}>
             {loading ? 'Refreshing...' : '↻ Refresh Status'}
           </button>
 
-          {/* Show "View Results" if all done, else "Start Next Step" */}
-          {progressPercent === 100 ? (
-            <button className="btn-primary" onClick={()=>nav('/dashboard')}>
-              View Final Results
+          {/* 3. CHANGED BUTTON LOGIC */}
+          {isOnlineTestDone ? (
+            // LINK TO NEW COMPONENT HERE
+            <button className="btn-primary" onClick={()=>nav('/online-result')}>
+              View Assessment Report
             </button>
           ) : (
             <button className="btn-primary" onClick={startNext} disabled={loading}>

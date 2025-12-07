@@ -5,6 +5,8 @@ import { post } from "../api";
 import "../styles/register.css";
 
 const LEFT_IMAGE = './src/assets/info.png'; 
+import LEFT_IMAGE from './assets/info.png';
+import LEFT_IMAGE1 from './assets/info.png';
 const LEFT_IMAGE1 = './src/assets/info.png'; 
 
 // Large degree list

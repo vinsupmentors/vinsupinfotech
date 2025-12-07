@@ -139,13 +139,13 @@ export default function App() {
                 </>
               ) : (
                 <>
-                  <span style={{ marginRight: 15, fontSize: '1.4rem', fontWeight: 600 }}>
+                  <span style={{ marginRight: 15, fontSize: '1 rem', fontWeight: 600 }}>
                     Hi, {user.name}
                   </span>
                   <button
                     className="nav-btn btn-ghost"
                     onClick={handleLogout}
-                    style={{ fontSize: '1.4rem', fontWeight: 600 }}
+                    style={{ fontSize: '1 rem', fontWeight: 600 }}
                   >
                     Logout
                   </button>

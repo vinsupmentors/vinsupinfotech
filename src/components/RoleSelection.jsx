@@ -6,7 +6,7 @@ import '../styles/role-selection.css';
 // Data strictly organized by column
 const DOMAINS = {
   noCoding: ["Business Analysis", "Consulting", "Content Writing", "Customer Success", "Data Entry", "Digital Marketing", "Event Management", "Finance Basics", "Graphic Design", "HR & Recruitment", "Operations", "Project Management", "Sales", "Teaching & Training", "UX Research"],
-  lowCoding: ["Basic Dashboarding", "BI Tools", "CMS Admin", "CRM Basics", "Data Analyst", "ETL Basics", "Excel Power Users", "Forms & Workflows", "Low-Code Apps", "No-Code Mobile Apps", "Power Platform", "RPA Basics", "Sheets Automation", "WordPress", "Zapier Automations"],
+  lowCoding: ["Basic Dashboarding", "BI Tools", "CMS Admin", "Tally", "Data Analyst", "ETL Basics", "Excel Power Users", "Forms & Workflows", "Low-Code Apps", "No-Code Mobile Apps", "Power Platform", "RPA Basics", "Sheets Automation", "WordPress", "Zapier Automations"],
   coding: ["AI/ML", "Backend Development", "Blockchain", "Cloud Engineering", "Data Science", "Database Admin", "DevOps", "Embedded Systems", "Frontend Development", "Game Development", "Mobile Dev", "QA & Testing", "Security", "SRE", "Web Development"]
 };
 

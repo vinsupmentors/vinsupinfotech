@@ -1,7 +1,9 @@
 import React from 'react';
 import '../styles/preloader.css';
 import LOGO_1 from '../assets/info.png'; // Your first logo
-import LOGO_2 from '../assets/1.png'; // REPLACE THIS with your second logo path
+import LOGO_2 from '../assets/1.png';'
+  import LOGO_3 from '../assets/images (3).jpeg';
+import LOGO_4 from '../assets/nm.jpg';// REPLACE THIS with your second logo path
 
 export default function Preloader() {
   return (
@@ -11,9 +13,11 @@ export default function Preloader() {
         
         {/* TWO LOGOS CONTAINER (No Pop Circle) */}
         <div className="dual-logo-container">
-          <img src={LOGO_1} alt="Logo 1" className="preloader-logo" />
+          <img src={LOGO_4} alt="Logo 1" className="preloader-logo" />
           <div className="logo-divider"></div> {/* Vertical line between logos */}
           <img src={LOGO_2} alt="Logo 2" className="preloader-logo" />
+          <div className="logo-divider"></div>
+           <img src={LOGO_3} alt="Logo 1" className="preloader-logo" />
         </div>
 
         {/* Text Section */}

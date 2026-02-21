@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/preloader.css';
 import LOGO_1 from '../assets/info.png'; // Your first logo
-import LOGO_2 from '../assets/1.png';'
+import LOGO_2 from '../assets/1.png';
   import LOGO_3 from '../assets/images (3).jpeg';
 import LOGO_4 from '../assets/nm.jpg';// REPLACE THIS with your second logo path
 
